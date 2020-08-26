@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block head_content %}
+    <title>Crear producto</title>
+{% endblock %}
+{% load static %}
+{% block container %}
+
+<div class="container">
+
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group">
+            <label for="id_name">Nombre</label>
+            <input type="text" name="name" class="form-control" maxlength="30" required="" id="id_name">
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                <label for="id_code">Codigo</label>
+                <input type="text" name="code" class="form-control" maxlength="30" required="" id="id_code">
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="form-group">
+                <label for="id_product">Producto</label>
+                <input type="text" name="product" class="form-control" maxlength="30" required="" id="id_product">
+                </div>
+            </div>
+        </div>
+
+            <button type="submit" class="btn btn-primary btn-block mt-5">ENVIAR</button>
+
+    </form>
+
+</div>
+
+
+
+{% endblock %}

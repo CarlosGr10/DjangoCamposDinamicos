@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block head_content %}
+    <title>Listado</title>
+{% endblock %}
+{% load static %}
+{% block container %}
+    <div class="container">
+        <div class="row">
+            {% for i in product %}
+                <br>
+                {{ i.pk }} /
+                {{ i.name }} /
+                {{ i.code }} /
+                {{ i.product }}
+            {% endfor %}
+
+
+        </div>
+    </div>
+
+{% endblock %}
