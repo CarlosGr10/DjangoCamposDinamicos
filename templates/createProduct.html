@@ -16,7 +16,7 @@
             </div>
         </div>
 
-
+<div id="listas">
         <div class="form-row">
             <div class="col">
                 <div class="form-group">
@@ -33,13 +33,54 @@
                 </div>
             </div>
         </div>
-
+</div>
+            <input type="button" id="add_field" class="btn btn-success" value="Agregar +">
             <button type="submit" class="btn btn-primary btn-block mt-5">ENVIAR</button>
+            <div class="row pt-5"></div>
 
     </form>
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
+<script>
+
+    var add = 2;
+    $('#add_field').click (function(e) {
+            e.preventDefault();
+                    $('#listas').append(`<div id="pinta_${add}"><br>
+                                            <h4 class="pt-4">Producto ${add}</h4><hr>
+                                            <div class="form-row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                <label for="id_code">Codigo</label>
+                                                <input type="text" name="code" class="form-control" maxlength="30" required="" id="id_code">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col">
+                                                <div class="form-group">
+                                                <label for="id_product">Producto</label>
+                                                <input type="text" name="product" class="form-control" maxlength="30" required="" id="id_product">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 pb-3">
+                                            <a href="#" class="remover_campo" onclick="eliminar(${add});">Quitar</a>
+                                            </div>
+
+                                        </div>
+                                 </div>`);
+                                    add++;
+
+    });
+
+    function eliminar(id) {
+        $('#pinta_'+id).remove();
+    }
+</script>
 
 {% endblock %}
