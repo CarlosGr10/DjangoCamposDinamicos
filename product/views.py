@@ -1,7 +1,8 @@
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy
 from .models import ModelProduct
-from .forms import FormProduct
+from .forms import ProductForm, ProductFormSet, NameForm
 
 
 class ListProduct(ListView):
@@ -17,5 +18,25 @@ class ListProduct(ListView):
 class CreateProduct(CreateView):
     template_name = 'createProduct.html'
     model = ModelProduct
-    form_class = FormProduct
+    form_class = ProductForm
     success_url = reverse_lazy('main')
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateProduct, self).get_context_data(**kwargs)
+        context['formset'] = ProductFormSet(queryset=ModelProduct.objects.none())
+        context['name_form'] = NameForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        formset = ProductFormSet(request.POST)
+        name_form = NameForm(data=request.POST)
+        if formset.is_valid() and name_form.is_valid():
+            return self.form_valid(formset, name_form)
+
+    def form_valid(self, formset, name_form):
+        name = name_form.cleaned_data['name']
+        instances = formset.save(commit=False)
+        for instance in instances:
+            instance.name = name
+            instance.save()
+        return HttpResponseRedirect('/')
