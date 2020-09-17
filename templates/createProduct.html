@@ -12,6 +12,10 @@
     {% csrf_token %}
 
         {{ name_form }} <br>
+    <!--
+        <label for="id_name">Name:</label>
+        <input type="text" name="name" maxlength="20" required="" id="id_name">
+    -->
     <div id="formAdd">
         {{ formset.management_form }}
         {% for form in formset %}
