@@ -6,15 +6,40 @@
 {% block container %}
     <div class="container">
         <div class="row">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">USUARIO</th>
+              <th scope="col">FECHA</th>
+              <th scope="col">NOMBRE</th>
+              <th scope="col">CODIGO</th>
+              <th scope="col">PRODUCTO</th>
+              <th scope="col">ESTATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
             {% for i in product %}
-                <br>
-                {{ i.pk }} --
-                User: {{ i.user }} /
-                Company: {{ i.name }} /
-                Code: {{ i.code }} /
-                Product: {{ i.product }} --->
-                 Status: {{ i.status }}
-            {% endfor %}
+              <th scope="row">{{ i.pk }}</th>
+              <td>{{ i.user }}</td>
+              <td>{{ i.created }}</td>
+              <td>{{ i.name }}</td>
+              <td>{{ i.code }}</td>
+              <td>{{ i.product }}</td>
+              <td>{{ i.status }}</td>
+              <td>
+              {% if i.file %}
+              <a href="{{ i.file.url }}">Archivo</a>
+              {% endif %}
+              </td>
+              <td></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
 
 
         </div>

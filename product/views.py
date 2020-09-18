@@ -29,7 +29,7 @@ class CreateProduct(CreateView):
 
     def post(self, request, *args, **kwargs):
         formset = ProductFormSet(request.POST)
-        name_form = NameForm(data=request.POST)
+        name_form = NameForm(data=request.POST, files=request.FILES)
         if formset.is_valid() and name_form.is_valid():
             return self.form_valid(formset, name_form)
 
@@ -37,10 +37,12 @@ class CreateProduct(CreateView):
         name = name_form.cleaned_data['name']
         status = name_form.cleaned_data['status']
         user = name_form.cleaned_data['user']
+        file = name_form.cleaned_data['file']
         instances = formset.save(commit=False)
         for instance in instances:
             instance.name = name
             instance.status = status
             instance.user = user
+            instance.file = file
             instance.save()
         return HttpResponseRedirect('/')
