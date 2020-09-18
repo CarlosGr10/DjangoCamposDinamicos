@@ -35,8 +35,12 @@ class CreateProduct(CreateView):
 
     def form_valid(self, formset, name_form):
         name = name_form.cleaned_data['name']
+        status = name_form.cleaned_data['status']
+        user = name_form.cleaned_data['user']
         instances = formset.save(commit=False)
         for instance in instances:
             instance.name = name
+            instance.status = status
+            instance.user = user
             instance.save()
         return HttpResponseRedirect('/')

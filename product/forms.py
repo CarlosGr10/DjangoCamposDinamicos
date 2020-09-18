@@ -1,17 +1,19 @@
 from django import forms
 from django.forms import modelformset_factory
 
-from .models import ModelProduct
+from .models import ModelProduct, ModelUser
 
 
 class NameForm(forms.Form):
     name = forms.CharField(max_length=20)
+    status = forms.CharField(max_length=20)
+    user = forms.ModelChoiceField(queryset=ModelUser.objects.all())
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = ModelProduct
-        fields = ('name', 'code', 'product')
+        fields = ('name', 'code', 'product', 'user')
 
 
-ProductFormSet = modelformset_factory(ModelProduct, fields=('code', 'product'), extra=1,)
+ProductFormSet = modelformset_factory(ModelProduct, fields=('code', 'product'), extra=1, )
